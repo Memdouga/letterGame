@@ -1,0 +1,72 @@
+//On utilise l'index pour que le serveur puisse reconnaitre
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeu de Typing</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            margin-top: 100px;
+        }
+        h1 {
+            color: #333;
+        }
+        #startMessage {
+            font-size: 20px;
+            margin: 20px;
+            color: #666;
+        }
+        #letter {
+            font-size: 50px;
+            font-weight: bold;
+            color: #007bff;
+            margin: 20px;
+        }
+        #score {
+            font-size: 24px;
+            margin-top: 20px;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Bienvenue sur le Jeu Typing</h1>
+        <p id="startMessage">Appuyez sur ESPACE pour commencer</p>
+        <p id="letter" style="display: none;"></p>
+        <p id="score">Score : 0</p>
+    </div>
+    <script>
+        let score = 0;
+        let currentLetter = "";
+        let isGameStarted = false;
+        function generateRandomLetter() {
+            const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            return letters[Math.floor(Math.random() * letters.length)];
+        }
+        document.addEventListener("keydown", function(event) {
+            if (!isGameStarted && event.code === "Space") {
+                isGameStarted = true;
+                document.getElementById("startMessage").style.display = "none";
+                currentLetter = generateRandomLetter();
+                document.getElementById("letter").innerText = currentLetter;//textcontent
+                document.getElementById("letter").style.display = "block";
+            } else if (isGameStarted && event.key.toUpperCase() === currentLetter) {
+                score++;
+                document.getElementById("score").innerText = "Score : " + score;
+                currentLetter = generateRandomLetter();
+                document.getElementById("letter").innerText = currentLetter;
+            }
+        });
+    </script>
+</body>
+</html>
